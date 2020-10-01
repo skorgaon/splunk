@@ -3,7 +3,7 @@
   <search id="base_search">
     <query>index="tmdb_index" | table id,release_date,title,genre_ids{},original_language,original_title,overview,popularity | mvexpand genre_ids{} | rename genre_ids{} as genre_id  | eval release_date_epoc = strptime(release_date,"%Y-%m-%d") | eval release_year = strftime(release_date_epoc,"%Y")| fillnull value="not Defined" id, release_year, genre_id, original_language</query>
   </search>
-  <fieldset submitButton="true" autoRun="true">
+  <fieldset submitButton="true" autoRun="false">
     <input type="dropdown" token="release_year" searchWhenChanged="false">
       <label>Release Year</label>
       <search base="base_search">
@@ -95,5 +95,16 @@
         <option name="drilldown">none</option>
       </table>
     </panel>
+    
+    <panel depends="$hidden$">
+      <html>
+         <style>
+       
+       .edit-other {
+           visibility: hidden !important;
+       }
+     </style>
+   </html>
+    </panel> 
   </row>
 </form>
